@@ -42,10 +42,10 @@ In your expense report,  _what is the product of the three entries that sum to  
 
 ## --- Solution ---
 
-**My puzzle input was [this](advent-of-code-2020/day1/input.txt).**
+**My puzzle input was [this](input.txt).**
 
 
-**My code for this solution was [this](/main.py).**
+**My code for this solution was [this](main.py).**
 
 
 **My puzzle answer was  `290784` on Part One and `177337980` on Part Two.**
