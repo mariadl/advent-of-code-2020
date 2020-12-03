@@ -1,4 +1,4 @@
-# Day 1 
+# Day 2 
 
 ## --- Part One: Problem Statement ---
 
@@ -48,5 +48,5 @@ In your expense report,  _what is the product of the three entries that sum to  
 **My code for this solution was [this](main.py).**
 
 
-**My puzzle answer was  `290784` on Part One and `177337980` on Part Two.**
+**My puzzle answer was  `607` on Part One and `321` on Part Two.**
 
