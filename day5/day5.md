@@ -1,43 +1,60 @@
-# Day 1 
+# Day 5 
 
-## --- Part One: Problem Statement ---
+## --- Binary Boarding - Problem Statement---
 
-After saving Christmas  [five years in a row](https://adventofcode.com/events), you've decided to take a vacation at a nice resort on a tropical island.  Surely, Christmas will go on without you.
+You board your plane only to discover a new problem: you dropped your boarding pass! You aren't sure which seat is yours, and all of the flight attendants are busy with the flood of people that suddenly made it through passport control.
 
-The tropical island has its own currency and is entirely cash-only. The gold coins used there have a little picture of a starfish; the locals just call them  _stars_. None of the currency exchanges seem to have heard of them, but somehow, you'll need to find fifty of these coins by the time you arrive so you can pay the deposit on your room.
+You write a  quick program  to use your phone's camera to scan all of the nearby boarding passes (your puzzle input); perhaps you can find your seat through process of elimination.
 
-To save your vacation, you need to get all  _fifty stars_  by December 25th.
+Instead of  [zones or groups](https://www.youtube.com/watch?v=oAHbLRjF0vo), this airline uses  _binary space partitioning_  to seat people. A seat might be specified like  `FBFBBFFRLR`, where  `F`  means "front",  `B`  means "back",  `L`  means "left", and  `R`  means "right".
 
-Collect stars by solving puzzles. Two puzzles will be made available on each day in the Advent calendar; the second puzzle is unlocked when you complete the first. Each puzzle grants  _one star_. Good luck!
+The first 7 characters will either be  `F`  or  `B`; these specify exactly one of the  _128 rows_  on the plane (numbered  `0`  through  `127`). Each letter tells you which half of a region the given seat is in. Start with the whole list of rows; the first letter indicates whether the seat is in the  _front_  (`0`  through  `63`) or the  _back_  (`64`  through  `127`). The next letter indicates which half of that region the seat is in, and so on until you're left with exactly one row.
 
-Before you leave, the Elves in accounting just need you to fix your  _expense report_  (your puzzle input); apparently, something isn't quite adding up.
+For example, consider just the first seven characters of  `FBFBBFFRLR`:
 
-Specifically, they need you to  _find the two entries that sum to  `2020`_  and then multiply those two numbers together.
+-   Start by considering the whole range, rows  `0`  through  `127`.
+-   `F`  means to take the  _lower half_, keeping rows  `0`  through  `63`.
+-   `B`  means to take the  _upper half_, keeping rows  `32`  through  `63`.
+-   `F`  means to take the  _lower half_, keeping rows  `32`  through  `47`.
+-   `B`  means to take the  _upper half_, keeping rows  `40`  through  `47`.
+-   `B`  keeps rows  `44`  through  `47`.
+-   `F`  keeps rows  `44`  through  `45`.
+-   The final  `F`  keeps the lower of the two,  _row  `44`_.
 
-For example, suppose your expense report contained the following:
+The last three characters will be either  `L`  or  `R`; these specify exactly one of the  _8 columns_  of seats on the plane (numbered  `0`  through  `7`). The same process as above proceeds again, this time with only three steps.  `L`  means to keep the  _lower half_, while  `R`  means to keep the  _upper half_.
 
-```
-1721
-979
-366
-299
-675
-1456
+For example, consider just the last 3 characters of  `FBFBBFFRLR`:
 
-```
+-   Start by considering the whole range, columns  `0`  through  `7`.
+-   `R`  means to take the  _upper half_, keeping columns  `4`  through  `7`.
+-   `L`  means to take the  _lower half_, keeping columns  `4`  through  `5`.
+-   The final  `R`  keeps the upper of the two,  _column  `5`_.
 
-In this list, the two entries that sum to  `2020`  are  `1721`  and  `299`. Multiplying them together produces  `1721 * 299 = 514579`, so the correct answer is  `_514579_`.
+So, decoding  `FBFBBFFRLR`  reveals that it is the seat at  _row  `44`, column  `5`_.
 
-Of course, your expense report is much larger.  _Find the two entries that sum to  `2020`; what do you get if you multiply them together?_
+Every seat also has a unique  _seat ID_: multiply the row by 8, then add the column. In this example, the seat has ID  `44 * 8 + 5 =  _357_`.
+
+Here are some other boarding passes:
+
+-   `BFFFBBFRRR`: row  `70`, column  `7`, seat ID  `567`.
+-   `FFFBBBFRRR`: row  `14`, column  `7`, seat ID  `119`.
+-   `BBFFBBFRLL`: row  `102`, column  `4`, seat ID  `820`.
+
+As a sanity check, look through your list of boarding passes.  _What is the highest seat ID on a boarding pass?_
 
 
-## --- Part Two: Problem Statement ---
+# Day 5
 
-The Elves in accounting are thankful for your help; one of them even offers you a starfish coin they had left over from a past vacation. They offer you a second one if you can find  _three_  numbers in your expense report that meet the same criteria.
+## --- Part Two ---
 
-Using the above example again, the three entries that sum to  `2020`  are  `979`,  `366`, and  `675`. Multiplying them together produces the answer,  `_241861950_`.
+_Ding!_  The "fasten seat belt" signs have turned on. Time to find your seat.
 
-In your expense report,  _what is the product of the three entries that sum to  `2020`?_
+It's a completely full flight, so your seat should be the only missing boarding pass in your list. However, there's a catch: some of the seats at the very front and back of the plane don't exist on this aircraft, so they'll be missing from your list as well.
+
+Your seat wasn't at the very front or back, though; the seats with IDs +1 and -1 from yours will be in your list.
+
+_What is the ID of your seat?_
+
 
 
 ## --- Solution ---
@@ -48,5 +65,5 @@ In your expense report,  _what is the product of the three entries that sum to  
 **My code for this solution was [this](main.py).**
 
 
-**My puzzle answer was  `607` on Part One and `321` on Part Two.**
+**My puzzle answer was  `938` on Part One and `696` on Part Two.**
 
