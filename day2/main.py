@@ -1,5 +1,4 @@
 def desafio():
-    arrDesafio = []
     with open("input.txt", "r") as file:
         cnt_part_one=0
         cnt_part_two=0
